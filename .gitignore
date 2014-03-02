@@ -1,0 +1,19 @@
+/Debug
+/Release
+/Frameworks
+/img
+/TileGameV2.app
+/Delivery.command
+/build
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+CMakeLists.txt.user
