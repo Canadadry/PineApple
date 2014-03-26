@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include <SceneGraph/scenenode.h>
+#include <SceneGraph/Core/scenenode.h>
 #include <SFML/Graphics/RectangleShape.hpp>
 
 class RectangleNode : public SceneNode
@@ -12,9 +12,14 @@ public:
     RectangleNode(SceneNode* parent = nullptr);
     virtual ~RectangleNode(){}
 
+    void onGeometryChange();
+    Property<sf::Color> color;
+    Property<sf::Color> borderColor;
+    Property<float>     borderWidth;
+
 private:
     virtual void    drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
-    sf::RectangleShape m_shape;
+    mutable sf::RectangleShape m_shape;
 
 };
 

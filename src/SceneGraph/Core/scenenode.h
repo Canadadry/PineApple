@@ -3,15 +3,15 @@
 
 #include <vector>
 
-#include <SFML/Graphics/Transformable.hpp>
+#include <SceneGraph/Core/geometry.h>
+#include <SceneGraph/System/Animation/Animation.h>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/System/Time.hpp>
 
-class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
-{
-public:
 
+class SceneNode : public Geometry, public sf::Drawable, private sf::NonCopyable, public Animation<float>
+{
 
 public:
     explicit SceneNode(SceneNode* parent = nullptr);
@@ -26,6 +26,8 @@ public:
     sf::Vector2f            getWorldPosition() const;
     virtual sf::FloatRect   getBoundingRect() const;
 
+    Property<bool>  visible;
+    Property<float> opacity;
 
 private:
     virtual void    updateCurrent(sf::Time dt);
@@ -36,6 +38,7 @@ private:
     virtual void    drawChildren(sf::RenderTarget &target, sf::RenderStates states) const;
 
 private:
+    mutable Property<float>         m_trueOpacity;
     std::vector<SceneNode*> m_children;
     SceneNode*              m_parent;
 

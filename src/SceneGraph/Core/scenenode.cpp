@@ -1,10 +1,13 @@
-#include "scenenode.h"
+#include <SceneGraph/Core/scenenode.h>
 
 typedef std::vector<SceneNode*>::iterator SceneNodeIter;
 typedef std::vector<SceneNode*>::const_iterator SceneNodeConstIter;
 
 SceneNode::SceneNode(SceneNode* parent)
-    : m_children()
+    : visible(true)
+    , opacity(1.0)
+    , m_trueOpacity(1.0)
+    , m_children()
     , m_parent(nullptr)
 {
     if(parent != nullptr)
@@ -43,6 +46,7 @@ void SceneNode::detachChild(const SceneNode &node)
 
 void SceneNode::update(sf::Time dt)
 {
+    Animation::update(dt);
     updateCurrent(dt);
     updateChildren(dt);
 }
@@ -84,6 +88,9 @@ sf::FloatRect SceneNode::getBoundingRect() const
 
 void SceneNode::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
+    if(visible.getValue()==false) return;
+    if(m_parent != nullptr) m_trueOpacity = m_parent->m_trueOpacity.getValue()*opacity.getValue();
+    else m_trueOpacity = opacity;
     states.transform *= getTransform();
     drawCurrent(target, states);
     drawChildren(target, states);
