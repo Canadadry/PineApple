@@ -1,19 +1,21 @@
-//#ifndef SPRITENODE_H
-//#define SPRITENODE_H
+#ifndef SPRITENODE_H
+#define SPRITENODE_H
 
-//#include "scenenode.h"
+#include <SceneGraph/Core/scenenode.h>
+#include <SFML/Graphics/VertexArray.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
-//class SpriteNode : public SceneNode
-//{
-//public:
-//    explicit SpriteNode(const sf::Texture& texture);
-//             SpriteNode(const sf::Texture &texture, const sf::IntRect& rect);
+class SpriteNode : public SceneNode
+{
+public:
+    explicit SpriteNode(const sf::Texture& texture);
 
-//private:
-//    virtual void    drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
+private:
+    virtual void    drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
 
-//private:
-//    sf::Sprite      mSprite;
-//};
 
-//#endif // SPRITENODE_H
+    mutable sf::VertexArray m_array;
+    sf::Texture     m_texture;
+};
+
+#endif // SPRITENODE_H

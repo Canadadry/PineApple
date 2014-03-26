@@ -21,9 +21,9 @@ void RectangleNode::onGeometryChange()
 
 void RectangleNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    m_shape.setFillColor(color*sf::Color(255,255,255,255*opacity.getValue()));
+    m_shape.setFillColor(color*sf::Color(255,255,255,255*m_trueOpacity.getValue()));
     m_shape.setOutlineThickness(borderWidth);
-    m_shape.setOutlineColor(borderColor*sf::Color(255,255,255,255*opacity.getValue()));
+    m_shape.setOutlineColor(borderColor*sf::Color(255,255,255,255*m_trueOpacity.getValue()));
 
     target.draw(m_shape, states);
 }

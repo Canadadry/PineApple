@@ -29,6 +29,9 @@ public:
     Property<bool>  visible;
     Property<float> opacity;
 
+protected:
+    mutable Property<float>         m_trueOpacity;
+
 private:
     virtual void    updateCurrent(sf::Time dt);
     virtual void    updateChildren(sf::Time dt);
@@ -37,8 +40,7 @@ private:
     virtual void    drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void    drawChildren(sf::RenderTarget &target, sf::RenderStates states) const;
 
-private:
-    mutable Property<float>         m_trueOpacity;
+
     std::vector<SceneNode*> m_children;
     SceneNode*              m_parent;
 
