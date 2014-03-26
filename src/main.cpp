@@ -2,6 +2,7 @@
 #include <SceneGraph/Core/scenenode.h>
 #include <SceneGraph/Core/rectanglenode.h>
 #include <SceneGraph/Core/spritenode.h>
+#include <SceneGraph/Core/textnode.h>
 #include <iostream>
 
 void renderSceneGraph(SceneNode& mainNode)
@@ -47,15 +48,23 @@ int main(int argc, char** argv)
     std::string lena_path = "/Users/mooglwy/Pictures/lena.png";
     sf::Texture lena;
     if(lena.loadFromFile(lena_path) == false) return EXIT_FAILURE;
-    SpriteNode* child = new SpriteNode(lena);
-    child->x = 100;
-    child->y = 100;
-    child->origin = Geometry::TopLeft;
-    child->scale = 0.2;
-    mainNode.attachChild(child);
+    SpriteNode* sprite = new SpriteNode(lena);
+    sprite->x = 100;
+    sprite->y = 100;
+    sprite->origin = Geometry::TopLeft;
+    sprite->scale = 0.2;
+    mainNode.attachChild(sprite);
+
+    TextNode* text = new TextNode;
+    text->x = 100;
+    text->y = 200;
+    text->origin = Geometry::TopLeft;
+    text->text = "I m lena";
+    text->fontName = "/Library/Fonts/Impact.ttf";
+    mainNode.attachChild(text);
 
     mainNode.animateOf(mainNode.x,500,sf::milliseconds(300),Easing::ELASTIC_OUT);
-    child->animateOf(child->rotation,360.0,sf::seconds(2.0f));
+    sprite->animateOf(sprite->rotation,360.0,sf::seconds(2.0f));
 
     renderSceneGraph(mainNode);
 

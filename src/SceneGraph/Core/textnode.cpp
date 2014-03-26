@@ -1,19 +1,28 @@
-//#include "textnode.h"
-//#include "../utils.h"
+#include <SceneGraph/Core/textnode.h>
+#include <SFML/Graphics/RenderTarget.hpp>
 
-//TextNode::TextNode(const std::string& text, const FontHolder& fonts) :
-//    mText(text, fonts.get(Fonts::Main), 20)
-//{
-//    centerOrigin(mText);
-//}
+TextNode::TextNode()
+    : text("")
+    , color(sf::Color::White)
+    , fontName("/Library/Fonts/Arial.ttf")
+    , fontlSize(16)
+    , alignement(Geometry::Middle)
+{
+    fontName.onValueChanged.Connect(this,&TextNode::updateFont);
+    updateFont();
+}
 
-//void TextNode::setText(const std::string &text)
-//{
-//    mText.setString(text);
-//    centerOrigin(mText);
-//}
 
-//void TextNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
-//{
-//    target.draw(mText, states);
-//}
+void TextNode::updateFont()
+{
+    m_font.loadFromFile(fontName);
+    m_text.setFont(m_font);
+}
+
+void TextNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    m_text.setString(sf::String(text));
+    m_text.setColor(color);
+    m_text.setCharacterSize(fontlSize);
+    target.draw(m_text, states);
+}

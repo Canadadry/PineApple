@@ -1,24 +1,31 @@
-//#ifndef TEXTNODE_H
-//#define TEXTNODE_H
+#ifndef TEXTNODE_H
+#define TEXTNODE_H
 
-//#include <string>
+#include <string>
 
-//#include "scenenode.h"
-//#include "../resources/resourceidentifiers.h"
-//#include "../resources/resourceholder.h"
+#include <SceneGraph/Core/scenenode.h>
+#include <SceneGraph/System/property.h>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Font.hpp>
 
-//class TextNode : public SceneNode
-//{
-//public:
-//    TextNode(const std::string& text, const FontHolder& fonts);
+class TextNode : public SceneNode
+{
+public:
+    TextNode();
 
-//    void            setText(const std::string& text);
+    Property<std::string>       text;
+    Property<sf::Color>         color;
+    Property<std::string>       fontName;
+    Property<float>             fontlSize;
+    Property<Geometry::Origin>  alignement;
 
-//private:
-//    virtual void    drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
+    void updateFont();
 
-//private:
-//    sf::Text        mText;
-//};
+private:
+    virtual void    drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
 
-//#endif // TEXTNODE_H
+    mutable sf::Text        m_text;
+    sf::Font        m_font;
+};
+
+#endif // TEXTNODE_H

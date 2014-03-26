@@ -1,5 +1,5 @@
-#ifndef TEXTNODE_H
-#define TEXTNODE_H
+#ifndef RECTANGLE_NODE_H
+#define RECTANGLE_NODE_H
 
 #include <string>
 
@@ -23,4 +23,4 @@ private:
 
 };
 
-#endif // TEXTNODE_H
+#endif // RECTANGLE_NODE_H
