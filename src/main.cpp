@@ -49,22 +49,38 @@ int main(int argc, char** argv)
     sf::Texture lena;
     if(lena.loadFromFile(lena_path) == false) return EXIT_FAILURE;
     SpriteNode* sprite = new SpriteNode(lena);
-    sprite->x = 100;
+    sprite->x.bindTo(mainNode.horzontalCenter);
     sprite->y = 100;
-    sprite->origin = Geometry::TopLeft;
-    sprite->scale = 0.2;
+    sprite->width= 200;
+    sprite->height = 100;
+    sprite->origin = Geometry::Top;
+
+    //    sprite->scale = 0.2;
     mainNode.attachChild(sprite);
 
+
     TextNode* text = new TextNode;
-    text->x = 100;
-    text->y = 200;
-    text->origin = Geometry::TopLeft;
+    text->origin = Geometry::Middle;
     text->text = "I m lena";
     text->fontName = "/Library/Fonts/Impact.ttf";
-    mainNode.attachChild(text);
 
-    mainNode.animateOf(mainNode.x,500,sf::milliseconds(300),Easing::ELASTIC_OUT);
-    sprite->animateOf(sprite->rotation,360.0,sf::seconds(2.0f));
+    RectangleNode* textBox = new RectangleNode;
+    textBox->origin = Geometry::Top;
+    textBox->x.bindTo(mainNode.horzontalCenter);
+    textBox->y.bindTo(mainNode.height);
+    textBox->width.bindTo(text->width);
+    textBox->height.bindTo(text->height);
+    textBox->origin.bindTo(text->origin);
+    textBox->color = sf::Color::Yellow;
+
+    text->x.bindTo(textBox->horzontalCenter);
+    text->y.bindTo(textBox->verticalCenter);
+
+    mainNode.attachChild(textBox);
+    textBox->attachChild(text);
+
+    mainNode.animateOf(mainNode.x,300,sf::milliseconds(3000));
+    mainNode.animateOf(mainNode.width,200,sf::milliseconds(3000));
 
     renderSceneGraph(mainNode);
 

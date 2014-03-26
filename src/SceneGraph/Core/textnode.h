@@ -20,8 +20,9 @@ public:
     Property<Geometry::Origin>  alignement;
 
     void updateFont();
+protected:
 
-private:
+    virtual void    updateCurrent(sf::Time dt);
     virtual void    drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
 
     mutable sf::Text        m_text;
